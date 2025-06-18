@@ -1,7 +1,15 @@
+import {app} from './app.js';
 import express from 'express';
 import 'dotenv/config';
+import taskRouter from './routes/taskRoutes.js'
 
-const app = express();  
+
+
+
+
+app.use('/api', taskRouter);
+
+
 
 
 const start = async function () { 
