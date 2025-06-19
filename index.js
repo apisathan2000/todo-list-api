@@ -1,16 +1,10 @@
 import {app} from './app.js';
-import express from 'express';
 import 'dotenv/config';
 import taskRouter from './routes/taskRoutes.js'
+import { notFound } from './middleware/notFound.js';
 
-
-
-
-
-app.use('/api', taskRouter);
-
-
-
+app.use('/api/v1', taskRouter);
+app.use(notFound);
 
 const start = async function () { 
     try {
@@ -26,7 +20,4 @@ const start = async function () {
     }
 }
 
-
-
 start();
-
