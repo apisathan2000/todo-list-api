@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 
-router.get('/tasks' , getAllTasks);
+router.get('/all' , getAllTasks);
 
 
 

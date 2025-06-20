@@ -1,9 +1,11 @@
 import {app} from './app.js';
 import 'dotenv/config';
 import taskRouter from './routes/taskRoutes.js'
+import authRouter from './routes/authRoutes.js'
 import { notFound } from './middleware/notFound.js';
 
-app.use('/api/v1', taskRouter);
+app.use('/api/v1/tasks', taskRouter);
+app.use('/api/v1/auth' , authRouter);
 app.use(notFound);
 
 const start = async function () { 
