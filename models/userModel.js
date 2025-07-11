@@ -35,7 +35,7 @@ const User = mongoose.model("User", userSchema);
 
 export default User;
 
-// //Function to compare password
-// const compareFunction = async function(unhashedString) {
-//   await bcrypt.compare(unhashedString, hash);
-// }
+//Function to compare password
+const compareFunction = async function(unhashedString) {
+  await bcrypt.compare(unhashedString, hash);
+}
