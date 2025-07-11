@@ -1,5 +1,6 @@
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import { createToken } from "../middleware/jwt.js";
 
 export const createUser = async function (req, res) {
   const { name, email, password } = req.body;
@@ -39,7 +40,9 @@ export const loginUser = async function (req, res, next) {
       return res.status(401).json({ msg: `Login Failed !` });
     }
 
-    return res.status(200).json({ msg: `Login Successful !` });
+    const token = createToken(user.name,user.email);
+
+    return res.status(200).json({ msg: `Login Successful !` , token});
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: `Internal Server Error !` });
