@@ -26,7 +26,9 @@ To access the model, use this.constructor.*/
 
 // Pre method to hash the password
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+  if (!this.isModified("password")) {
+    return next();
+  }
   this.password = await hashFunction(this.password);
   next();
 });
@@ -35,7 +37,3 @@ const User = mongoose.model("User", userSchema);
 
 export default User;
 
-//Function to compare password
-const compareFunction = async function(unhashedString) {
-  await bcrypt.compare(unhashedString, hash);
-}
