@@ -49,7 +49,12 @@ export const loginUser = async function (req, res, next) {
   }
 };
 
-export const deleteUser = async function () {};
+export const deleteUser = async function (req,res) { 
+
+  const {name:userName, email:userEmail } = req.user;
+
+  res.status(200).json({msg:`User Deleted Successfully !` ,name: userName , email: userEmail});
+};
 
 //Function to compare password
 const compareFunction = async function (unhashedString, hash) {
