@@ -40,20 +40,35 @@ export const loginUser = async function (req, res, next) {
       return res.status(401).json({ msg: `Login Failed !` });
     }
 
-    const token = createToken(user.name,user.email);
+    const token = createToken(user.name, user.email);
 
-    return res.status(200).json({ msg: `Login Successful !` , token});
+    return res.status(200).json({ msg: `Login Successful !`, token });
   } catch (error) {
     console.log(error);
     res.status(500).json({ msg: `Internal Server Error !` });
   }
 };
 
-export const deleteUser = async function (req,res) { 
+export const deleteUser = async function (req, res) {
+  const { name: userName, email: userEmail } = req.user;
 
-  const {name:userName, email:userEmail } = req.user;
+  try {
+    const deletedUser = await User.findOneAndDelete({
+      email: userEmail,
+    }).exec();
 
-  res.status(200).json({msg:`User Deleted Successfully !` ,name: userName , email: userEmail});
+    if (deletedUser) {
+      return res.status(200).json({
+        msg: `User Deleted Successfully !`,
+        name: userName,
+        email: userEmail,
+      });
+    }
+
+    return res.status(404).json({ msg: `Cannot find user` });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
 };
 
 //Function to compare password
