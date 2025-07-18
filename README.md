@@ -13,6 +13,7 @@
    - Create a `.env` file in the root directory (if needed).
    - Example:
      ```env
+     PORT = 5506
      MONGO_URI=mongodb://localhost:27017/todo-db
      JWT_SECRET=your_jwt_secret
      ```
