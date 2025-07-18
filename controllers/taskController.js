@@ -1,3 +1,89 @@
-export const getAllTasks = async function (req,res) { 
-    res.status(200).send({msg:'Tasks fetched successfully !'});
-}
+import Task from "../models/taskModel.js";
+
+export const getAllTasks = async function (req, res) {
+  const user = req.user.id;
+
+  // const { limit, page, sortby } = req.query;
+
+  try {
+    const tasks = await Task.find({ user: user }).limit(10);
+
+    return res.status(200).json({ msg: `Tasks fetched successfully`, tasks });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
+export const postTask = async function (req, res) {
+  const { id } = req.user;
+
+  const { title, description } = req.body;
+
+  try {
+    const task = await Task.create({ title, description, user: id });
+
+    return res.status(201).json({
+      msg: `Task created successfully`,
+      id: task.id,
+      title: task.title,
+      description: task.description,
+    });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
+export const updateTask = async function (req, res) {
+  const { id: userId } = req.user;
+
+  const id = req.params.id;
+
+  const { title, description } = req.body;
+
+  try {
+    const task = await Task.findById(id);
+    if (!task) {
+      return res.status(404).json({ msg: `Task not found` });
+    }
+
+    if (task.user.toString() !== userId) {
+      return res.status(400).json({ msg: `Only the owner can update tasks` });
+    }
+
+    const updatedTask = await Task.findByIdAndUpdate(
+      id,
+      { title, description },
+      { new: "true" }
+    );
+
+    return res
+      .status(200)
+      .json({ msg: `Task updated successfully`, updatedTask });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
+
+export const deleteTask = async function (req, res) {
+  const id = req.params.id;
+  const userId = req.user.id;
+
+  try {
+    const task = await Task.findById(id);
+    if (!task) {
+      return res.status(404).json({ msg: `No tasks found with such id` });
+    }
+
+    if (task.user.toString() !== userId) {
+      return res.status(400).json({ msg: `Only the owner can update tasks` });
+    }
+
+    const deletedTask = await Task.findByIdAndDelete(id);
+
+    return res
+      .status(200)
+      .json({ msg: `Task ${deletedTask.id} deleted successfully` });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};

@@ -40,7 +40,7 @@ export const loginUser = async function (req, res, next) {
       return res.status(401).json({ msg: `Login Failed !` });
     }
 
-    const token = createToken(user.name, user.email);
+    const token = createToken(user.name, user.id);
 
     return res.status(200).json({ msg: `Login Successful !`, token });
   } catch (error) {
@@ -50,18 +50,17 @@ export const loginUser = async function (req, res, next) {
 };
 
 export const deleteUser = async function (req, res) {
-  const { name: userName, email: userEmail } = req.user;
+  const { id } = req.user;
 
   try {
     const deletedUser = await User.findOneAndDelete({
-      email: userEmail,
+      _id: id,
     }).exec();
 
     if (deletedUser) {
       return res.status(200).json({
         msg: `User Deleted Successfully !`,
-        name: userName,
-        email: userEmail,
+        id
       });
     }
 
