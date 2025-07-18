@@ -3,12 +3,23 @@ import Task from "../models/taskModel.js";
 export const getAllTasks = async function (req, res) {
   const user = req.user.id;
 
-  // const { limit, page, sortby } = req.query;
+  const limit = Number(req.query.limit) || 10;
+  const page = Number(req.query.page) || 1;
 
   try {
-    const tasks = await Task.find({ user: user }).limit(10);
+    const tasks = await Task.find({ user: user })
+      .skip(limit * (page - 1))
+      .limit(limit);
 
-    return res.status(200).json({ msg: `Tasks fetched successfully`, tasks });
+    const count = await Task.where({ user: user }).countDocuments().exec();
+
+    return res.status(200).json({
+      msg: `Tasks fetched successfully`,
+      tasks,
+      page: page,
+      limit: limit,
+      total: count,
+    });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }
