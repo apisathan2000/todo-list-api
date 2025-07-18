@@ -58,7 +58,7 @@ export const deleteUser = async function (req, res) {
     }).exec();
 
     if (deletedUser) {
-      return res.status(200).json({
+      return res.status(204).json({
         msg: `User Deleted Successfully !`,
         id
       });
