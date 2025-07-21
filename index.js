@@ -4,9 +4,14 @@ import taskRouter from "./routes/taskRoutes.js";
 import authRouter from "./routes/authRoutes.js";
 import { notFound } from "./middleware/notFound.js";
 import connectDB from "./config/dbConfig.js";
+import swaggerUi from 'swagger-ui-express';
+import YAML from 'yamljs';
+
+const swaggerDocument = YAML.load('./openapi.yaml');
 
 app.use("/api/v1/tasks", taskRouter);
 app.use("/api/v1/auth", authRouter);
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(notFound);
 
 const start = async function () {

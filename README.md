@@ -35,7 +35,11 @@ Project reference: [roadmap.sh todo-list-api](https://roadmap.sh/projects/todo-l
    ```
 
 5. **Test the API**
+
    - Use Postman, curl, or any API client to interact with endpoints.
+
+6. **View API Documentation**
+   - Visit [http://localhost:5506/api-docs](http://localhost:5506/api-docs) to view the Swagger (OpenAPI) documentation for all endpoints.
 
 ---
 
