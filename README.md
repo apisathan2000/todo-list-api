@@ -97,10 +97,56 @@ All endpoints are prefixed with `/api/v1` (if your main router uses this prefix;
   ```json
   {
     "msg": "Tasks fetched successfully",
-    "tasks": [ /* array of tasks */ ],
-    "page": 1,
-    "limit": 10,
-    "total": 100
+    "tasks": [
+      {
+        "_id": "687a22f95da5a2094d069bc9",
+        "title": "Task491 for User1",
+        "description": "Random description vq6vwo",
+        "user": "687a22eb5da5a2094d069665",
+        "createdAt": "2025-07-18T10:33:29.678Z",
+        "updatedAt": "2025-07-18T10:33:29.678Z",
+        "__v": 0
+      },
+      {
+        "_id": "687a22f95da5a2094d069bcb",
+        "title": "Task492 for User1",
+        "description": "Random description 1qjvhdd",
+        "user": "687a22eb5da5a2094d069665",
+        "createdAt": "2025-07-18T10:33:29.678Z",
+        "updatedAt": "2025-07-18T10:33:29.678Z",
+        "__v": 0
+      },
+      {
+        "_id": "687a22f95da5a2094d069bcd",
+        "title": "Task493 for User1",
+        "description": "Random description bnhk59",
+        "user": "687a22eb5da5a2094d069665",
+        "createdAt": "2025-07-18T10:33:29.678Z",
+        "updatedAt": "2025-07-18T10:33:29.678Z",
+        "__v": 0
+      },
+      {
+        "_id": "687a22f95da5a2094d069bcf",
+        "title": "Task494 for User1",
+        "description": "Random description xuyken",
+        "user": "687a22eb5da5a2094d069665",
+        "createdAt": "2025-07-18T10:33:29.679Z",
+        "updatedAt": "2025-07-18T10:33:29.679Z",
+        "__v": 0
+      },
+      {
+        "_id": "687a22f95da5a2094d069bd1",
+        "title": "Task495 for User1",
+        "description": "Random description ma1ypb",
+        "user": "687a22eb5da5a2094d069665",
+        "createdAt": "2025-07-18T10:33:29.679Z",
+        "updatedAt": "2025-07-18T10:33:29.679Z",
+        "__v": 0
+      }
+    ],
+    "page": 99,
+    "limit": 5,
+    "total": 100000
   }
   ```
 
@@ -140,7 +186,15 @@ All endpoints are prefixed with `/api/v1` (if your main router uses this prefix;
   ```json
   {
     "msg": "Task updated successfully",
-    "updatedTask": { /* updated task object */ }
+    "updatedTask": {
+      "_id": "687a22f95da5a2094d069bc9",
+      "title": "task 1",
+      "description": "description 1",
+      "user": "687a22eb5da5a2094d069665",
+      "createdAt": "2025-07-18T10:33:29.678Z",
+      "updatedAt": "2025-07-21T11:28:02.144Z",
+      "__v": 0
+    }
   }
   ```
 
